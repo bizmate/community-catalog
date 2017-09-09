@@ -8,7 +8,7 @@ db:
   tty: true
   stdin_open: true
   volumes:
-  - ${DIR}/db:/var/lib/mysql
+  - ${DIR}-db:/var/lib/mysql
 sslproxy:
   image: nginx:1.9.9
   tty: true
@@ -16,8 +16,8 @@ sslproxy:
   links:
   - portus:portus
   volumes:
-  - ${DIR}/certs:/etc/nginx/certs:ro
-  - ${DIR}/proxy:/etc/nginx/conf.d:ro
+  - ${DIR}-certs:/etc/nginx/certs:ro
+  - ${DIR}-proxy:/etc/nginx/conf.d:ro
 registry:
   image: registry:2.3.1
   environment:
@@ -42,8 +42,8 @@ registry:
   links:
   - portus:portus
   volumes:
-  - ${DIR}/certs:/certs
-  - ${DIR}/data:/var/lib/registry
+  - ${DIR}-certs:/certs
+  - ${DIR}-data:/var/lib/registry
 lb:
   image: rancher/load-balancer-service
   tty: true
@@ -92,8 +92,8 @@ portus:
   tty: true
   stdin_open: true
   volumes:
-  - ${DIR}/certs:/certs
-  - ${DIR}/proxy:/etc/nginx/conf.d
+  - ${DIR}-certs:/certs
+  - ${DIR}-proxy:/etc/nginx/conf.d
   links:
   - db:db
   labels:
